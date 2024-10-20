@@ -8,13 +8,16 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "properties")
+@EqualsAndHashCode(of = {"id"})
+@Getter
 public class Property {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +29,6 @@ public class Property {
     private String city;
     private double price;
     private double surface;
-    private String type; // e.g., "House", "Apartment"
     private int bedrooms;
     private int bathrooms;
 

@@ -1,22 +1,28 @@
 package com.github.alina.repl.models.dtos;
 
-import com.github.alina.repl.models.entities.Property;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import com.github.alina.repl.models.entities.Agent;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.util.List;
 @Data
-@Table(name = "agents")
 public class AgentDTO {
     private Long id;
+    @NotNull
     private String name;
+    @NotNull
+    @Email
     private String email;
+    private List<PropertyDTO> properties;
 
-    @OneToMany(mappedBy = "agent")
-    private List<Property> properties;
-
-    public void setId(Long id) {
+    public AgentDTO(Long id, String name, String email) {
         this.id = id;
+        this.name = name;
+        this.email = email;
+    }
+
+    public static AgentDTO from(Agent agent) {
+        return new AgentDTO(agent.getId(), agent.getName(), agent.getEmail());
     }
 }
