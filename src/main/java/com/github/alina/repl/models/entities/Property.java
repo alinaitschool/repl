@@ -1,5 +1,6 @@
 package com.github.alina.repl.models.entities;
 
+import com.github.alina.repl.models.dtos.PropertyDTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -34,4 +35,18 @@ public class Property {
 
     @ManyToOne
     private Agent agent;
+
+    public static Property from(PropertyDTO propertyDTO) {
+        return new Property(propertyDTO.getId(),
+                propertyDTO.getTitle(),
+                propertyDTO.getPropertyType(),
+                propertyDTO.getDescription(),
+                propertyDTO.getAddress(),
+                propertyDTO.getCity(),
+                propertyDTO.getPrice(),
+                propertyDTO.getSurface(),
+                propertyDTO.getBedrooms(),
+                propertyDTO.getBathrooms(),
+                Agent.from(propertyDTO.getAgent()));
+    }
 }

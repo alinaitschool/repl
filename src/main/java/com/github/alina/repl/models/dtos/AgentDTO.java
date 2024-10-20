@@ -23,6 +23,9 @@ public class AgentDTO {
     }
 
     public static AgentDTO from(Agent agent) {
+        if (agent == null) {
+            return null;
+        }
         return new AgentDTO(agent.getId(), agent.getName(), agent.getEmail());
     }
 }

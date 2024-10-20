@@ -38,6 +38,9 @@ public class Buyer {
     }
 
     public static Buyer from(BuyerDTO buyerDTO) {
+        if (buyerDTO == null) {
+            return null;
+        }
         return new Buyer(buyerDTO.getId(), buyerDTO.getFirstName(), buyerDTO.getSecondName(), buyerDTO.getEmail());
     }
 }

@@ -30,6 +30,9 @@ public class BuyerDTO {
     }
 
     public static BuyerDTO from(Buyer buyer) {
+        if (buyer == null) {
+            return null;
+        }
         return new BuyerDTO(buyer.getId(), buyer.getFirstName(), buyer.getSecondName(), buyer.getEmail());
     }
 }
