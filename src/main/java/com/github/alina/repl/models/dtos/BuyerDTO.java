@@ -1,6 +1,6 @@
 package com.github.alina.repl.models.dtos;
+
 import com.github.alina.repl.models.entities.Buyer;
-import com.github.alina.repl.models.entities.Property;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

@@ -9,8 +9,6 @@ import com.github.alina.repl.repositories.AgentRepository;
 import com.github.alina.repl.repositories.PropertyRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class AgentService {
 

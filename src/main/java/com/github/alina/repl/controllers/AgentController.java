@@ -4,7 +4,6 @@ import com.github.alina.repl.models.dtos.AgentDTO;
 import com.github.alina.repl.models.dtos.PropertyDTO;
 import com.github.alina.repl.services.AgentService;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;

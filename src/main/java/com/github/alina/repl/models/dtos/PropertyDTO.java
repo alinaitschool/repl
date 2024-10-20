@@ -2,8 +2,6 @@ package com.github.alina.repl.models.dtos;
 
 import com.github.alina.repl.models.entities.Property;
 import com.github.alina.repl.models.entities.PropertyType;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
