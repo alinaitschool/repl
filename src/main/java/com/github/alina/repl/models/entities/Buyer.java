@@ -1,5 +1,6 @@
 package com.github.alina.repl.models.entities;
 
+import com.github.alina.repl.models.dtos.BuyerDTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,4 +29,15 @@ public class Buyer {
 
     @ManyToMany
     private List<Property> favoriteProperties;
+
+    public Buyer(Long id, String firstName, String secondName, String email) {
+        this.id = id;
+        this.firstName = firstName;
+        this.secondName = secondName;
+        this.email = email;
+    }
+
+    public static Buyer from(BuyerDTO buyerDTO) {
+        return new Buyer(buyerDTO.getId(), buyerDTO.getFirstName(), buyerDTO.getSecondName(), buyerDTO.getEmail());
+    }
 }

@@ -11,10 +11,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.net.URI;
 
 @Validated
 @RestController
+@RequestMapping("/agent")
 public class AgentController {
 
     private final AgentService agentService;
@@ -23,10 +27,10 @@ public class AgentController {
         this.agentService = agentService;
     }
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<AgentDTO> createAgent(@RequestBody @Valid AgentDTO agentDTO) {
         AgentDTO saved  = agentService.save(agentDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+        return ResponseEntity.created(URI.create("/api/agent/" + saved.getId())).body(saved);
     }
 
     @PutMapping("/{id}")
@@ -35,7 +39,7 @@ public class AgentController {
         if (!id.equals(agentDTO.getId())) {
             return ResponseEntity.badRequest().build();
         }
-        return ResponseEntity.ok().body(agentService.save(agentDTO));
+        return ResponseEntity.ok().body(agentService.update(agentDTO));
     }
 
     @GetMapping("/{id}")

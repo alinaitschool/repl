@@ -22,7 +22,9 @@ public class AgentService {
     }
 
     public AgentDTO update(AgentDTO agentDTO) {
-        agentRepository.findById(agentDTO.getId()).orElseThrow(() -> new ResourceNotFoundException("/agent/" + agentDTO.getId()));
+        if (!agentRepository.existsById(agentDTO.getId())) {
+            throw new ResourceNotFoundException("Agent with id " + agentDTO.getId() + " not found");
+        }
         return AgentDTO.from(agentRepository.save(Agent.from(agentDTO)));
     }
 
