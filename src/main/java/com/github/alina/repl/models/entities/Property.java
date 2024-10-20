@@ -7,11 +7,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @NoArgsConstructor
@@ -19,6 +21,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "properties")
 @EqualsAndHashCode(of = {"id"})
 @Getter
+@Setter
 public class Property {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,6 +39,28 @@ public class Property {
     @ManyToOne
     private Agent agent;
 
+    public Property(Long id,
+                    String title,
+                    PropertyType propertyType,
+                    String description,
+                    String address,
+                    String city,
+                    double price,
+                    double surface,
+                    int bedrooms,
+                    int bathrooms) {
+        this.id = id;
+        this.title = title;
+        this.propertyType = propertyType;
+        this.description = description;
+        this.address = address;
+        this.city = city;
+        this.price = price;
+        this.surface = surface;
+        this.bedrooms = bedrooms;
+        this.bathrooms = bathrooms;
+    }
+
     public static Property from(PropertyDTO propertyDTO) {
         return new Property(propertyDTO.getId(),
                 propertyDTO.getTitle(),
@@ -46,7 +71,6 @@ public class Property {
                 propertyDTO.getPrice(),
                 propertyDTO.getSurface(),
                 propertyDTO.getBedrooms(),
-                propertyDTO.getBathrooms(),
-                Agent.from(propertyDTO.getAgent()));
+                propertyDTO.getBathrooms());
     }
 }

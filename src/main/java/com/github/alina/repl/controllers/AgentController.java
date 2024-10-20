@@ -1,6 +1,7 @@
 package com.github.alina.repl.controllers;
 
 import com.github.alina.repl.models.dtos.AgentDTO;
+import com.github.alina.repl.models.dtos.PropertyDTO;
 import com.github.alina.repl.services.AgentService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -45,6 +46,12 @@ public class AgentController {
     @GetMapping("/{id}")
     public ResponseEntity<AgentDTO> getAgent(@PathVariable Long id) {
         return ResponseEntity.ok().body(agentService.findById(id));
+    }
+
+    @PostMapping("/{id}/properties")
+    public ResponseEntity<PropertyDTO> addProperty(@PathVariable Long id, @RequestBody @Valid PropertyDTO propertyDTO) {
+        PropertyDTO saved = agentService.addProperty(id, propertyDTO);
+        return ResponseEntity.created(URI.create("/api/property/" + saved.getId())).body(saved);
     }
 
 }
