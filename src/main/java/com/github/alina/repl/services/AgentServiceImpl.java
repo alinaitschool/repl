@@ -30,7 +30,8 @@ public class AgentServiceImpl implements AgentService {
         if (!agentRepository.existsById(agentDTO.getId())) {
             throw new ResourceNotFoundException("Agent with id " + agentDTO.getId() + " not found");
         }
-        return AgentDTO.from(agentRepository.save(Agent.from(agentDTO)));
+        Agent saved = agentRepository.save(Agent.from(agentDTO));
+        return AgentDTO.from(saved);
     }
 
     @Override
