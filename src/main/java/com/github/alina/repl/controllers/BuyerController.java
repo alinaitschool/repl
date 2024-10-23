@@ -22,7 +22,7 @@ import java.util.List;
 
 @Validated
 @RestController
-@RequestMapping("/buyer")
+@RequestMapping("/buyers")
 public class BuyerController {
 
     private final BuyerService buyerService;
@@ -34,7 +34,7 @@ public class BuyerController {
     @PostMapping
     public ResponseEntity<BuyerDTO> createBuyer(@RequestBody @Valid BuyerDTO buyerDTO) {
         BuyerDTO saved = buyerService.save(buyerDTO);
-        return ResponseEntity.created(URI.create("/api/buyer/" + saved.getId())).body(saved);
+        return ResponseEntity.created(URI.create(" " + saved.getId())).body(saved);
     }
 
     @PutMapping("/{id}")
