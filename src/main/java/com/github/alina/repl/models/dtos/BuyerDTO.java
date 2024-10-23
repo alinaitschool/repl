@@ -29,6 +29,12 @@ public class BuyerDTO {
         this.email = email;
     }
 
+    public BuyerDTO(String firstName, String secondName, String email) {
+        this.firstName = firstName;
+        this.secondName = secondName;
+        this.email = email;
+    }
+
     public static BuyerDTO from(Buyer buyer) {
         if (buyer == null) {
             return null;

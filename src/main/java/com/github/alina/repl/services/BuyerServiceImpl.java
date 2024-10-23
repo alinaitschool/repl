@@ -47,4 +47,5 @@ public class BuyerServiceImpl implements BuyerService {
         Buyer saved = buyerRepository.save(buyer);
         return saved.getFavoriteProperties().stream().map(PropertyDTO::from).toList();
     }
+
 }
