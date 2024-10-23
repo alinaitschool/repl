@@ -22,7 +22,7 @@ import java.util.List;
 
 @Validated
 @RestController
-@RequestMapping("api/buyers")
+@RequestMapping("/buyers")
 public class BuyerController {
 
     private final BuyerService buyerService;

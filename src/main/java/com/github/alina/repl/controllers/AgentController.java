@@ -18,7 +18,7 @@ import java.net.URI;
 
 @Validated
 @RestController
-@RequestMapping("api/agents")
+@RequestMapping("/agents")
 public class AgentController {
 
     private final AgentService agentService;
@@ -30,7 +30,7 @@ public class AgentController {
     @PostMapping
     public ResponseEntity<AgentDTO> createAgent(@RequestBody @Valid AgentDTO agentDTO) {
         AgentDTO saved = agentService.save(agentDTO);
-        return ResponseEntity.created(URI.create(" " + saved.getId())).body(saved);
+        return ResponseEntity.created(URI.create("/api/agents/" + saved.getId())).body(saved);
     }
 
     @PutMapping("/{id}")
