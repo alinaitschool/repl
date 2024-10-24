@@ -4,9 +4,11 @@ import com.github.alina.repl.models.entities.Agent;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 @Data
+@NoArgsConstructor
 public class AgentDTO {
     private Long id;
     @NotNull

@@ -10,7 +10,9 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -18,6 +20,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 public class Buyer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +31,7 @@ public class Buyer {
     private String email;
 
     @ManyToMany
-    private List<Property> favoriteProperties;
+    private List<Property> favoriteProperties = new ArrayList<>();
 
     public Buyer(Long id, String firstName, String secondName, String email) {
         this.id = id;
