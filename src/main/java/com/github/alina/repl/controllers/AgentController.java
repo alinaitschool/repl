@@ -18,7 +18,7 @@ import java.net.URI;
 
 @Validated
 @RestController
-@RequestMapping("/agents")
+@RequestMapping("/api/agents")
 public class AgentController {
 
     private final AgentService agentService;
