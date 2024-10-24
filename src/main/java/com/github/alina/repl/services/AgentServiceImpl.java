@@ -46,5 +46,4 @@ public class AgentServiceImpl implements AgentService {
         property.setAgent(agent);
         return PropertyDTO.from(propertyRepository.save(property));
     }
-
 }

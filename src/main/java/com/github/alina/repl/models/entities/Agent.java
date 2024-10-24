@@ -31,16 +31,16 @@ public class Agent {
     @OneToMany(mappedBy = "agent")
     private List<Property> properties;
 
-    public Agent(Long id, String email, String name) {
+    public Agent(Long id, String name, String email){
         this.id = id;
-        this.email = email;
         this.name = name;
+        this.email = email;
     }
 
     public static Agent from(AgentDTO agentDTO)  {
         if (agentDTO == null) {
             return null;
         }
-        return new Agent(agentDTO.getId(), agentDTO.getEmail(), agentDTO.getName());
+        return new Agent(agentDTO.getId(), agentDTO.getName(), agentDTO.getEmail());
     }
 }

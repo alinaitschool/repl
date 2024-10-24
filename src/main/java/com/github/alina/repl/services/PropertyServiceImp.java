@@ -12,10 +12,11 @@ import java.util.List;
 @Service
 public class PropertyServiceImp implements PropertyService {
     private final PropertyRepository propertyRepository;
-    private ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;
 
-    public PropertyServiceImp(PropertyRepository propertyRepository) {
+    public PropertyServiceImp(PropertyRepository propertyRepository, ObjectMapper objectMapper) {
         this.propertyRepository = propertyRepository;
+        this.objectMapper = objectMapper;
     }
 
     @Override
