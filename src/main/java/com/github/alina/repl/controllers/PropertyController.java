@@ -5,6 +5,7 @@ import com.github.alina.repl.models.entities.Property;
 import com.github.alina.repl.models.entities.PropertyType;
 import com.github.alina.repl.services.PropertyService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,11 +21,12 @@ public class PropertyController {
         this.propertyService = propertyService;
     }
 
+    @GetMapping
     public ResponseEntity<List<PropertyDTO>> getProperties(
             @RequestParam(value = "propertyType", required = false) PropertyType propertyType,
             @RequestParam(value = "city", required = false) String city,
             @RequestParam(value = "price", required = false) Long price,
-            @RequestParam(value = "bedrooms", required = false) int bedrooms) {
+            @RequestParam(value = "bedrooms", required = false) Long bedrooms) {
         return ResponseEntity.ok(propertyService.getProperties(propertyType, city, price, bedrooms));
     }
 }

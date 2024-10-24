@@ -20,11 +20,11 @@ public class PropertyServiceImp implements PropertyService {
     }
 
     @Override
-    public List<PropertyDTO> getProperties(PropertyType propertyType, String city, Long price, int bedrooms) {
+    public List<PropertyDTO> getProperties(PropertyType propertyType, String city, Long price, Long bedrooms) {
        Specification<Property> spec = Specification.where(PropertySpecification.propertyTypeContains(propertyType))
                .and(PropertySpecification.cityContains(city))
                .and(PropertySpecification.priceBigger(price)).
-               and(PropertySpecification.bedroomsNumbersContains((long) bedrooms));
+               and(PropertySpecification.bedroomsNumbersContains(bedrooms));
        List<Property> properties = propertyRepository.findAll(spec);
         return properties.stream().map(property -> objectMapper.convertValue(property, PropertyDTO.class)).toList();
     }

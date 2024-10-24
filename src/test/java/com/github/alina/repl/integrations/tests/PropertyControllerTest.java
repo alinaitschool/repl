@@ -1,9 +1,6 @@
 package com.github.alina.repl.integrations.tests;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.alina.repl.models.dtos.FavoriteDTO;
 import com.github.alina.repl.models.entities.Agent;
-import com.github.alina.repl.models.entities.Buyer;
 import com.github.alina.repl.models.entities.Property;
 import com.github.alina.repl.models.entities.PropertyType;
 import com.github.alina.repl.repositories.AgentRepository;
@@ -20,9 +17,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 
 @Slf4j
 @ExtendWith(SpringExtension.class)
@@ -30,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @Transactional
 @AutoConfigureTestDatabase
-public class BuyerControllerTest {
+public class PropertyControllerTest {
     @Autowired
     private MockMvc mockMvc;
     @Autowired
@@ -43,21 +40,21 @@ public class BuyerControllerTest {
     private AgentRepository agentRepository;
 
     @Test
-    void testAddFavouriteProperty() throws Exception {
-        // setup test data
-        Agent agent = agentRepository.save(new Agent(null, "Alina", "alina@gmail"));
-        Buyer buyer = new Buyer();
-        buyer.setFirstName("Alina");
-        buyer.setSecondName("Ghetler");
-        buyer.setEmail("alina@gmail.com");
-        Buyer savedBuyer = buyerRepository.save(buyer);
+    void shouldPropertyBeFiltered() throws Exception {
+        createProperty(PropertyType.VILLA, "Address 1", "Berlin");
+        createProperty(PropertyType.FARMHOUSE, "Address 2", "Hamburg");
+        mockMvc.perform(get("/api/properties").queryParam("propertyType", PropertyType.FARMHOUSE.name())
+                .accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+    }
+
+    private void createProperty(PropertyType type, String address, String city) {
+        Agent agent = agentRepository.save(new Agent(1L, "Alina", "alina@gmail"));
         Property property = new Property();
-        property.setPropertyType(PropertyType.VILLA);
-        property.setCity("Berlin");
+        property.setPropertyType(type);
+        property.setCity(city);
+        property.setAddress(address);
+        property.setTitle("Demo");
         property.setAgent(agent);
         Property savedProperty = propertyRepository.save(property);
-        FavoriteDTO favoriteDTO = new FavoriteDTO();
-        favoriteDTO.setPropertyId(savedProperty.getId());
-        mockMvc.perform(patch("/api/buyers/" + savedBuyer.getId()).contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsBytes(favoriteDTO))).andExpect(status().isOk());
     }
 }
