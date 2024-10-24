@@ -1,7 +1,7 @@
 package com.github.alina.repl.integrations.tests;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.alina.repl.models.dtos.FavoriteDTO;
+import com.github.alina.repl.models.dtos.PropertyDTO;
 import com.github.alina.repl.models.entities.Agent;
 import com.github.alina.repl.models.entities.Buyer;
 import com.github.alina.repl.models.entities.Property;
@@ -21,7 +21,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Slf4j
@@ -30,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @Transactional
 @AutoConfigureTestDatabase
-public class BuyerControllerTest {
+public class AgentControllerTest {
     @Autowired
     private MockMvc mockMvc;
     @Autowired
@@ -44,14 +44,14 @@ public class BuyerControllerTest {
 
     @Test
     void testAddFavouriteProperty() throws Exception {
-        // setup test data
         Agent agent = agentRepository.save(new Agent(null, "Alina", "alina@gmail"));
         Property property = new Property();
         property.setPropertyType(PropertyType.VILLA);
         property.setCity("Berlin");
-        property.setAgent(agent);
-        Property savedProperty = propertyRepository.save(property);
-        FavoriteDTO favoriteDTO = new FavoriteDTO();
-        favoriteDTO.setPropertyId(savedProperty.getId());
+        property.setTitle("Title");
+        property.setAddress("cucu");
+        PropertyDTO propertyDTO= PropertyDTO.from(property);
+        mockMvc.perform(post("/api/agents/"+ agent.getId() + "/properties").contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(propertyDTO))).andExpect(status().isCreated());
     }
 }
