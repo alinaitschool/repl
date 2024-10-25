@@ -24,7 +24,7 @@ public class AgentDTO {
         this.email = email;
     }
 
-    public static AgentDTO from(Agent agent) {
+    public static AgentDTO fromEntityToDTO(Agent agent) {
         if (agent == null) {
             return null;
         }

@@ -35,7 +35,7 @@ public class BuyerDTO {
         this.email = email;
     }
 
-    public static BuyerDTO from(Buyer buyer) {
+    public static BuyerDTO fromEntityToDTO(Buyer buyer) {
         if (buyer == null) {
             return null;
         }

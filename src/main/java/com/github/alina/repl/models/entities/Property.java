@@ -62,7 +62,7 @@ public class Property {
         this.bathrooms = bathrooms;
     }
 
-    public static Property from(PropertyDTO propertyDTO) {
+    public static Property fromDTOToEntity(PropertyDTO propertyDTO) {
         return new Property(propertyDTO.getId(),
                 propertyDTO.getTitle(),
                 propertyDTO.getPropertyType(),

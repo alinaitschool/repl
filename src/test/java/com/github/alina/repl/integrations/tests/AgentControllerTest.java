@@ -3,7 +3,6 @@ package com.github.alina.repl.integrations.tests;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.alina.repl.models.dtos.PropertyDTO;
 import com.github.alina.repl.models.entities.Agent;
-import com.github.alina.repl.models.entities.Buyer;
 import com.github.alina.repl.models.entities.Property;
 import com.github.alina.repl.models.entities.PropertyType;
 import com.github.alina.repl.repositories.AgentRepository;
@@ -50,7 +49,7 @@ public class AgentControllerTest {
         property.setCity("Berlin");
         property.setTitle("Title");
         property.setAddress("cucu");
-        PropertyDTO propertyDTO= PropertyDTO.from(property);
+        PropertyDTO propertyDTO= PropertyDTO.fromEntityToDTO(property);
         mockMvc.perform(post("/api/agents/"+ agent.getId() + "/properties").contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(propertyDTO))).andExpect(status().isCreated());
     }

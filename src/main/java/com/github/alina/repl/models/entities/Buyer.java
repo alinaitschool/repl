@@ -40,7 +40,7 @@ public class Buyer {
         this.email = email;
     }
 
-    public static Buyer from(BuyerDTO buyerDTO) {
+    public static Buyer fromDTOToEntity(BuyerDTO buyerDTO) {
         if (buyerDTO == null) {
             return null;
         }

@@ -25,9 +25,9 @@ public class BuyerServiceImpl implements BuyerService {
 
     @Override
     public BuyerDTO save(BuyerDTO buyerDTO) {
-        Buyer buyer = buyerRepository.save(Buyer.from(buyerDTO));
+        Buyer buyer = buyerRepository.save(Buyer.fromDTOToEntity(buyerDTO));
         log.info("Buyer with the id {} was saved", buyer.getId());
-        return BuyerDTO.from(buyer);
+        return BuyerDTO.fromEntityToDTO(buyer);
     }
 
     @Override
@@ -35,16 +35,16 @@ public class BuyerServiceImpl implements BuyerService {
         if (!buyerRepository.existsById(buyerDTO.getId())) {
             throw new ResourceNotFoundException("Buyer with id " + buyerDTO.getId() + " not found");
         }
-        Buyer buyer = buyerRepository.save(Buyer.from(buyerDTO));
+        Buyer buyer = buyerRepository.save(Buyer.fromDTOToEntity(buyerDTO));
         log.info("Buyer with the id {} was updated", buyer.getId());
-        return BuyerDTO.from(buyer);
+        return BuyerDTO.fromEntityToDTO(buyer);
     }
 
     @Override
     public BuyerDTO findById(Long id) {
         Buyer buyer = buyerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Buyer with id " + id + " not found"));
         log.info("Buyer with the id {} was find it", buyer.getId());
-        return BuyerDTO.from(buyer);
+        return BuyerDTO.fromEntityToDTO(buyer);
     }
 
     @Override
@@ -54,6 +54,6 @@ public class BuyerServiceImpl implements BuyerService {
         buyer.getFavoriteProperties().add(property);
         Buyer saved = buyerRepository.save(buyer);
         log.info("Property with the id {} was add it to the property list", property.getId());
-        return saved.getFavoriteProperties().stream().map(PropertyDTO::from).toList();
+        return saved.getFavoriteProperties().stream().map(PropertyDTO::fromEntityToDTO).toList();
     }
 }

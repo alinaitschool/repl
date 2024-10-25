@@ -4,10 +4,14 @@ import com.github.alina.repl.models.entities.Property;
 import com.github.alina.repl.models.entities.PropertyType;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
 public class PropertyDTO {
@@ -27,7 +31,7 @@ public class PropertyDTO {
     private int bathrooms;
     private AgentDTO agent;
 
-    public static PropertyDTO from(Property property) {
+    public static PropertyDTO fromEntityToDTO(Property property) {
         return new PropertyDTO(property.getId(),
                 property.getTitle(),
                 property.getPropertyType(),
@@ -38,6 +42,6 @@ public class PropertyDTO {
                 property.getSurface(),
                 property.getBedrooms(),
                 property.getBathrooms(),
-                AgentDTO.from(property.getAgent()));
+                AgentDTO.fromEntityToDTO(property.getAgent()));
     }
 }

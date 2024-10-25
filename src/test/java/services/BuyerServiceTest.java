@@ -1,6 +1,5 @@
 package services;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.alina.repl.exceptions.ResourceNotFoundException;
 import com.github.alina.repl.models.dtos.BuyerDTO;
 import com.github.alina.repl.models.dtos.PropertyDTO;
@@ -39,7 +38,7 @@ public class BuyerServiceTest {
     @Test
     void testCreateBuyer() {
         BuyerDTO buyerDTO = new BuyerDTO("Alina", "Ghetler", "alina@gmail");
-        Buyer buyer = Buyer.from(buyerDTO);
+        Buyer buyer = Buyer.fromDTOToEntity(buyerDTO);
         //new Buyer(null, "Alina", "Ghetler", "alina@gmail");
         when(buyerRepository.save(buyer)).thenReturn(new Buyer(1L, "Alina", "Ghetler", "alina@gmail"));
         BuyerDTO buyerDTO1 = buyerServiceImpl.save(buyerDTO);
@@ -51,7 +50,7 @@ public class BuyerServiceTest {
     void updateBuyer_Success() {
         BuyerDTO buyerDTO = new BuyerDTO("Alina", "Ghetler", "alina@gmail");
         buyerDTO.setId(1L);
-        Buyer buyer = Buyer.from(buyerDTO);
+        Buyer buyer = Buyer.fromDTOToEntity(buyerDTO);
         when(buyerRepository.existsById(buyerDTO.getId())).thenReturn(true);
         when(buyerRepository.save(any(Buyer.class))).thenReturn(buyer);
         BuyerDTO updatedBuyerDTO = buyerServiceImpl.update(buyerDTO);
@@ -63,7 +62,7 @@ public class BuyerServiceTest {
     void updateBuyer_NotFound() {
         BuyerDTO buyerDTO = new BuyerDTO("Alina", "Ghetler", "alina@gmail");
         buyerDTO.setId(1L);
-        Buyer buyer = Buyer.from(buyerDTO);
+        Buyer buyer = Buyer.fromDTOToEntity(buyerDTO);
         when(buyerRepository.existsById(buyerDTO.getId())).thenReturn(false);
         ResourceNotFoundException ex = assertThrows(ResourceNotFoundException.class, () -> buyerServiceImpl.update(buyerDTO));
     }
@@ -72,7 +71,7 @@ public class BuyerServiceTest {
     void findById_Success() {
         BuyerDTO buyerDTO = new BuyerDTO("Alina", "Ghetler", "alina@gmail");
         buyerDTO.setId(1L);
-        Buyer buyer = Buyer.from(buyerDTO);
+        Buyer buyer = Buyer.fromDTOToEntity(buyerDTO);
         when(buyerRepository.findById(buyerDTO.getId())).thenReturn(Optional.of(buyer));
         BuyerDTO result = buyerServiceImpl.findById(1L);
         assertEquals(buyerDTO, result);
@@ -82,10 +81,10 @@ public class BuyerServiceTest {
     void testAddProperty() {
         BuyerDTO buyerDTO = new BuyerDTO("Alina", "Ghetler", "alina@gmail");
         buyerDTO.setId(1L);
-        Buyer buyer = Buyer.from(buyerDTO);
+        Buyer buyer = Buyer.fromDTOToEntity(buyerDTO);
         PropertyDTO propertyDTO = new PropertyDTO(1L, "Villa Nova", PropertyType.VILLA, "Beautifull", "Berlin", "Alina", 200.00, 20.5, 4, 5,
                 null);
-        Property property = Property.from(propertyDTO);
+        Property property = Property.fromDTOToEntity(propertyDTO);
         when(buyerRepository.findById(buyerDTO.getId())).thenReturn(Optional.of(buyer));
         when(propertyRepository.findById(propertyDTO.getId())).thenReturn(Optional.of(property));
         when(buyerRepository.save(buyer)).thenReturn(buyer);
