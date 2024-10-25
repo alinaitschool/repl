@@ -7,10 +7,12 @@ import com.github.alina.repl.models.entities.Buyer;
 import com.github.alina.repl.models.entities.Property;
 import com.github.alina.repl.repositories.BuyerRepository;
 import com.github.alina.repl.repositories.PropertyRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 public class BuyerServiceImpl implements BuyerService {
     private final BuyerRepository buyerRepository;
@@ -23,7 +25,9 @@ public class BuyerServiceImpl implements BuyerService {
 
     @Override
     public BuyerDTO save(BuyerDTO buyerDTO) {
-        return BuyerDTO.from(buyerRepository.save(Buyer.from(buyerDTO)));
+        Buyer buyer = buyerRepository.save(Buyer.from(buyerDTO));
+        log.info("Buyer with the id {} was saved", buyer.getId());
+        return BuyerDTO.from(buyer);
     }
 
     @Override
@@ -31,12 +35,16 @@ public class BuyerServiceImpl implements BuyerService {
         if (!buyerRepository.existsById(buyerDTO.getId())) {
             throw new ResourceNotFoundException("Buyer with id " + buyerDTO.getId() + " not found");
         }
-        return BuyerDTO.from(buyerRepository.save(Buyer.from(buyerDTO)));
+        Buyer buyer = buyerRepository.save(Buyer.from(buyerDTO));
+        log.info("Buyer with the id {} was updated", buyer.getId());
+        return BuyerDTO.from(buyer);
     }
 
     @Override
     public BuyerDTO findById(Long id) {
-        return BuyerDTO.from(buyerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Buyer with id " + id + " not found")));
+        Buyer buyer = buyerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Buyer with id " + id + " not found"));
+        log.info("Buyer with the id {} was find it", buyer.getId());
+        return BuyerDTO.from(buyer);
     }
 
     @Override
@@ -45,7 +53,7 @@ public class BuyerServiceImpl implements BuyerService {
         Property property = propertyRepository.findById(propertyId).orElseThrow(() -> new ResourceNotFoundException("Property with id " + propertyId + " not found"));
         buyer.getFavoriteProperties().add(property);
         Buyer saved = buyerRepository.save(buyer);
+        log.info("Property with the id {} was add it to the property list", property.getId());
         return saved.getFavoriteProperties().stream().map(PropertyDTO::from).toList();
     }
-
 }
