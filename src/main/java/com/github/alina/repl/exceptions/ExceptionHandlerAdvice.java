@@ -11,4 +11,8 @@ public class ExceptionHandlerAdvice {
     public ResponseEntity<String> handleResourceNotFoundException(ResourceNotFoundException ex){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
+    @ExceptionHandler( IdNotMatchException.class)
+    public ResponseEntity<String>  handleIdNotMatchException(ResourceNotFoundException ex){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
 }

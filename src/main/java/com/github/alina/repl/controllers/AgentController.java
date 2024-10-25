@@ -36,10 +36,7 @@ public class AgentController {
     @PutMapping("/{id}")
     public ResponseEntity<AgentDTO> updateAgent(@PathVariable Long id,
                                                 @RequestBody @Valid AgentDTO agentDTO) {
-        if (!id.equals(agentDTO.getId())) {
-            return ResponseEntity.badRequest().build();
-        }
-        return ResponseEntity.ok().body(agentService.update(agentDTO));
+        return ResponseEntity.ok().body(agentService.update(id, agentDTO));
     }
 
     @GetMapping("/{id}")

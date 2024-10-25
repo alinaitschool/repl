@@ -1,5 +1,6 @@
 package com.github.alina.repl.services;
 
+import com.github.alina.repl.exceptions.IdNotMatchException;
 import com.github.alina.repl.exceptions.ResourceNotFoundException;
 import com.github.alina.repl.models.dtos.AgentDTO;
 import com.github.alina.repl.models.dtos.PropertyDTO;
@@ -7,6 +8,7 @@ import com.github.alina.repl.models.entities.Agent;
 import com.github.alina.repl.models.entities.Property;
 import com.github.alina.repl.repositories.AgentRepository;
 import com.github.alina.repl.repositories.PropertyRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -26,7 +28,10 @@ public class AgentServiceImpl implements AgentService {
     }
 
     @Override
-    public AgentDTO update(AgentDTO agentDTO) {
+    public AgentDTO update(Long id, AgentDTO agentDTO) {
+        if (!id.equals(agentDTO.getId())) {
+            throw new IdNotMatchException("Agent with id " + agentDTO.getId() + " not match the path");
+        }
         if (!agentRepository.existsById(agentDTO.getId())) {
             throw new ResourceNotFoundException("Agent with id " + agentDTO.getId() + " not found");
         }
