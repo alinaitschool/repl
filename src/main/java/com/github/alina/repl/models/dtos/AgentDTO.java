@@ -11,10 +11,10 @@ import java.util.List;
 @NoArgsConstructor
 public class AgentDTO {
     private Long id;
-    @NotNull
+    @NotNull(message = "Can't be null")
     private String name;
-    @NotNull
-    @Email
+    @NotNull(message = "Can't be null")
+    @Email(message = "Provide a valid email")
     private String email;
     private List<PropertyDTO> properties;
 
