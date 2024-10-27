@@ -24,10 +24,11 @@ The Real Estate Listing Management System is a Spring Boot-based web application
 - **JUnit 5** (for unit tests)
 - **Mockito** (for mocking dependencies in tests)
 - **Postman** (for API testing)
+- **OpenAPI** (for API testing)
 
 ## Features
 CRUD Operations:
-- Manage agents games.
+- Manage agents.
 - Manage buyers.
 - Manage properties.
 - Buyers can add properties to favorites.
@@ -64,7 +65,7 @@ mvn spring-boot:run
 
 Alternatively, run the JAR file:
 ```bash
-java -jar target/Board-Game-Cafe-Reservation-System.jar
+java -jar target/repl.jar
 ```
 The app will be accessible at: http://localhost:8080
 
