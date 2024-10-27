@@ -4,6 +4,7 @@ import com.github.alina.repl.models.dtos.PropertyDTO;
 import com.github.alina.repl.models.entities.Property;
 import com.github.alina.repl.models.entities.PropertyType;
 import com.github.alina.repl.services.PropertyService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +21,7 @@ public class PropertyController {
     public PropertyController(PropertyService propertyService) {
         this.propertyService = propertyService;
     }
-
+    @Operation(summary = "Get all properties")
     @GetMapping
     public ResponseEntity<List<PropertyDTO>> getProperties(
             @RequestParam(value = "propertyType", required = false) PropertyType propertyType,

@@ -4,6 +4,7 @@ import com.github.alina.repl.models.dtos.BuyerDTO;
 import com.github.alina.repl.models.dtos.FavoriteDTO;
 import com.github.alina.repl.models.dtos.PropertyDTO;
 import com.github.alina.repl.services.BuyerService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -31,12 +32,14 @@ public class BuyerController {
         this.buyerService = buyerService;
     }
 
+    @Operation(summary = "Create a buyer")
     @PostMapping
     public ResponseEntity<BuyerDTO> createBuyer(@RequestBody @Valid BuyerDTO buyerDTO) {
         BuyerDTO saved = buyerService.save(buyerDTO);
         return ResponseEntity.created(URI.create(" " + saved.getId())).body(saved);
     }
 
+    @Operation(summary = "Update a buyer")
     @PutMapping("/{id}")
     public ResponseEntity<BuyerDTO> updateBuyer(@PathVariable Long id,
                                                 @RequestBody @Valid BuyerDTO buyerDTO) {
@@ -45,12 +48,12 @@ public class BuyerController {
         }
         return ResponseEntity.ok().body(buyerService.update(buyerDTO));
     }
-
+    @Operation(summary = "Get agent")
     @GetMapping("/{id}")
     public ResponseEntity<BuyerDTO> getAgent(@PathVariable Long id) {
         return ResponseEntity.ok().body(buyerService.findById(id));
     }
-
+    @Operation(summary = "Add a property to favourites")
     @PatchMapping("/{id}")
     public ResponseEntity<List<PropertyDTO>> addPropertyToFavorites(@PathVariable Long id, @RequestBody @Valid FavoriteDTO favorite) {
         List<PropertyDTO> propertyDTOS = buyerService.addPropertyToFavorites(id, favorite.getPropertyId());
