@@ -18,6 +18,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
+
 @ExtendWith(MockitoExtension.class)
 public class AgentServiceTest {
     @Mock
@@ -28,17 +29,18 @@ public class AgentServiceTest {
     private AgentServiceImpl agentServiceImpl;
 
     @Test
-    void testCreateAgent(){
-        AgentDTO agentDTO = new AgentDTO(null, "Gabriela",  "alina@gmail" );
+    void testCreateAgent() {
+        AgentDTO agentDTO = new AgentDTO(null, "Gabriela", "alina@gmail");
         Agent agent = Agent.fromDTOToEntity(agentDTO);
-        when(agentRepository.save(agent)).thenReturn(new Agent(1L, "Gabriela",  "alina@gmail"));
+        when(agentRepository.save(agent)).thenReturn(new Agent(1L, "Gabriela", "alina@gmail"));
         AgentDTO agentDTO1 = agentServiceImpl.save(agentDTO);
         agentDTO.setId(1L);
         assertEquals(agentDTO, agentDTO1);
     }
+
     @Test
-    void shouldAddPropertyByAgent(){
-        AgentDTO agentDTO = new AgentDTO(1L, "Gabriela",  "alina@gmail" );
+    void shouldAddPropertyByAgent() {
+        AgentDTO agentDTO = new AgentDTO(1L, "Gabriela", "alina@gmail");
         Agent agent = Agent.fromDTOToEntity(agentDTO);
         PropertyDTO propertyDTO = new PropertyDTO(1L, "Villa Nova", PropertyType.VILLA, "Beautifull", "Berlin", "Alina", 200.00, 20.5, 4, 5,
                 null);
@@ -46,7 +48,7 @@ public class AgentServiceTest {
         property.setAgent(agent);
         when(agentRepository.findById(agent.getId())).thenReturn(Optional.of(agent));
         when(propertyRepository.save(property)).thenReturn(property);
-        PropertyDTO result = agentServiceImpl.addProperty(1L, propertyDTO );
+        PropertyDTO result = agentServiceImpl.addProperty(1L, propertyDTO);
         propertyDTO.setAgent(agentDTO);
         assertEquals(propertyDTO, result);
     }
