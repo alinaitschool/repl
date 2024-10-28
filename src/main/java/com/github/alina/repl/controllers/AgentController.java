@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
-
+@CrossOrigin(origins = "*")
 @Validated
 @RestController
 @RequestMapping("/api/agents")
@@ -28,7 +28,6 @@ public class AgentController {
     public AgentController(AgentService agentService) {
         this.agentService = agentService;
     }
-
     @Operation(summary = "Create a new agent")
     @PostMapping
 
