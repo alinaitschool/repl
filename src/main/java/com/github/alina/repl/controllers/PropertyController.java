@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+
 @CrossOrigin(origins = "*")
 @RequestMapping("/api/properties")
 @RestController
@@ -22,7 +23,7 @@ public class PropertyController {
     public PropertyController(PropertyService propertyService) {
         this.propertyService = propertyService;
     }
-    @CrossOrigin(origins = "*")
+
     @Operation(summary = "Get all properties")
     @GetMapping
     public ResponseEntity<List<PropertyDTO>> getProperties(

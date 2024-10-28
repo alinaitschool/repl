@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
+
 @CrossOrigin(origins = "*")
 @Validated
 @RestController
@@ -28,6 +29,7 @@ public class AgentController {
     public AgentController(AgentService agentService) {
         this.agentService = agentService;
     }
+
     @Operation(summary = "Create a new agent")
     @PostMapping
 
@@ -35,20 +37,20 @@ public class AgentController {
         AgentDTO saved = agentService.save(agentDTO);
         return ResponseEntity.created(URI.create("/api/agents/" + saved.getId())).body(saved);
     }
-    @CrossOrigin(origins = "*")
+
     @Operation(summary = "Create a new agent")
     @PutMapping("/{id}")
     public ResponseEntity<AgentDTO> updateAgent(@PathVariable Long id,
                                                 @RequestBody @Valid AgentDTO agentDTO) {
         return ResponseEntity.ok().body(agentService.update(id, agentDTO));
     }
-    @CrossOrigin(origins = "*")
+
     @Operation(summary = "Get a agent")
     @GetMapping("/{id}")
     public ResponseEntity<AgentDTO> getAgent(@PathVariable Long id) {
         return ResponseEntity.ok().body(agentService.findById(id));
     }
-    @CrossOrigin(origins = "*")
+
     @Operation(summary = "Add a property")
     @PostMapping("/{id}/properties")
     public ResponseEntity<PropertyDTO> addProperty(@PathVariable Long id, @RequestBody @Valid PropertyDTO propertyDTO) {

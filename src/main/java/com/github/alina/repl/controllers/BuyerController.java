@@ -49,13 +49,13 @@ public class BuyerController {
         }
         return ResponseEntity.ok().body(buyerService.update(buyerDTO));
     }
-    @CrossOrigin(origins = "*")
+
     @Operation(summary = "Get agent")
     @GetMapping("/{id}")
     public ResponseEntity<BuyerDTO> getAgent(@PathVariable Long id) {
         return ResponseEntity.ok().body(buyerService.findById(id));
     }
-    @CrossOrigin(origins = "*")
+
     @Operation(summary = "Add a property to favourites")
     @PatchMapping("/{id}")
     public ResponseEntity<List<PropertyDTO>> addPropertyToFavorites(@PathVariable Long id, @RequestBody @Valid FavoriteDTO favorite) {
