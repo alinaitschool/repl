@@ -37,7 +37,7 @@ public class BuyerController {
     @PostMapping
     public ResponseEntity<BuyerDTO> createBuyer(@RequestBody @Valid BuyerDTO buyerDTO) {
         BuyerDTO saved = buyerService.save(buyerDTO);
-        return ResponseEntity.created(URI.create(" " + saved.getId())).body(saved);
+        return ResponseEntity.created(URI.create("/api/buyers/" + saved.getId())).body(saved);
     }
 
     @Operation(summary = "Update a buyer")
