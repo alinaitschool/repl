@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,11 +49,13 @@ public class BuyerController {
         }
         return ResponseEntity.ok().body(buyerService.update(buyerDTO));
     }
+    @CrossOrigin(origins = "*")
     @Operation(summary = "Get agent")
     @GetMapping("/{id}")
     public ResponseEntity<BuyerDTO> getAgent(@PathVariable Long id) {
         return ResponseEntity.ok().body(buyerService.findById(id));
     }
+    @CrossOrigin(origins = "*")
     @Operation(summary = "Add a property to favourites")
     @PatchMapping("/{id}")
     public ResponseEntity<List<PropertyDTO>> addPropertyToFavorites(@PathVariable Long id, @RequestBody @Valid FavoriteDTO favorite) {
