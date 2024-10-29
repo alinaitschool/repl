@@ -1,10 +1,13 @@
 package com.github.alina.repl.models.entities;
 
 import com.github.alina.repl.models.dtos.BuyerDTO;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -29,7 +32,6 @@ public class Buyer {
     private String secondName;
 
     private String email;
-
     @ManyToMany
     private List<Property> favoriteProperties = new ArrayList<>();
 

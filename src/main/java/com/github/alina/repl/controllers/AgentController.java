@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -56,5 +57,11 @@ public class AgentController {
     public ResponseEntity<PropertyDTO> addProperty(@PathVariable Long id, @RequestBody @Valid PropertyDTO propertyDTO) {
         PropertyDTO saved = agentService.addProperty(id, propertyDTO);
         return ResponseEntity.created(URI.create("/api/property/" + saved.getId())).body(saved);
+    }
+    @Operation(summary = "Delete a agent")
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteAgent(@PathVariable("id") Long id){
+        agentService.deleteAgent(id);
+        return ResponseEntity.ok("Agent deleted successful");
     }
 }

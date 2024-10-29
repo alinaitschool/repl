@@ -25,4 +25,8 @@ public class ExceptionHandlerAdvice {
     public ResponseEntity<List<ObjectError>> handleValidationExceptions(MethodArgumentNotValidException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getAllErrors());
     }
+    @ExceptionHandler(AgentNotFoundException.class)
+    public ResponseEntity<String> handleAgentNotFoundException(ResourceNotFoundException ex){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
 }

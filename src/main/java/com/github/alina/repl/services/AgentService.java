@@ -11,4 +11,6 @@ public interface AgentService {
     AgentDTO findById(Long id);
 
     PropertyDTO addProperty(Long agentId, PropertyDTO propertyDTO);
+    void deleteAgent(Long id);
+
 }

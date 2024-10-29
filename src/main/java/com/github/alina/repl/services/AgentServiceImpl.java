@@ -1,5 +1,6 @@
 package com.github.alina.repl.services;
 
+import com.github.alina.repl.exceptions.AgentNotFoundException;
 import com.github.alina.repl.exceptions.IdNotMatchException;
 import com.github.alina.repl.exceptions.ResourceNotFoundException;
 import com.github.alina.repl.models.dtos.AgentDTO;
@@ -8,6 +9,7 @@ import com.github.alina.repl.models.entities.Agent;
 import com.github.alina.repl.models.entities.Property;
 import com.github.alina.repl.repositories.AgentRepository;
 import com.github.alina.repl.repositories.PropertyRepository;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -56,5 +58,14 @@ public class AgentServiceImpl implements AgentService {
         property.setAgent(agent);
         log.info("Property add it");
         return PropertyDTO.fromEntityToDTO(propertyRepository.save(property));
+    }
+
+    @Override
+    @Transactional
+    public void deleteAgent(Long id) {
+        Agent agent = agentRepository.findById(id).orElseThrow(()->new AgentNotFoundException("Event with {id} not found"));
+        propertyRepository.deleteBuyerRelation(id);
+        propertyRepository.deleteAllByAgent_Id(id);
+        agentRepository.deleteById(id);
     }
 }
