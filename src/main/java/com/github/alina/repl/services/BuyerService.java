@@ -2,6 +2,7 @@ package com.github.alina.repl.services;
 
 import com.github.alina.repl.models.dtos.BuyerDTO;
 import com.github.alina.repl.models.dtos.PropertyDTO;
+import com.github.alina.repl.models.entities.Buyer;
 
 import java.util.List;
 
@@ -13,4 +14,5 @@ public interface BuyerService {
     BuyerDTO findById(Long id);
 
     List<PropertyDTO> addPropertyToFavorites(Long id, Long propertyId);
+    void deleteBuyer(Long id);
 }

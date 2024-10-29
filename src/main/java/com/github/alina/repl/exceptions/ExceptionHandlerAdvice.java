@@ -29,4 +29,7 @@ public class ExceptionHandlerAdvice {
     public ResponseEntity<String> handleAgentNotFoundException(ResourceNotFoundException ex){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
+    public ResponseEntity<String> handleBuyerNotFound(ResourceNotFoundException ex){
+        return  ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
 }

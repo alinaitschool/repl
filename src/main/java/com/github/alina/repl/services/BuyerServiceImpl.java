@@ -1,5 +1,6 @@
 package com.github.alina.repl.services;
 
+import com.github.alina.repl.exceptions.BuyerNotFoundException;
 import com.github.alina.repl.exceptions.ResourceNotFoundException;
 import com.github.alina.repl.models.dtos.BuyerDTO;
 import com.github.alina.repl.models.dtos.PropertyDTO;
@@ -55,5 +56,11 @@ public class BuyerServiceImpl implements BuyerService {
         Buyer saved = buyerRepository.save(buyer);
         log.info("Property with the id {} was add it to the property list", property.getId());
         return saved.getFavoriteProperties().stream().map(PropertyDTO::fromEntityToDTO).toList();
+    }
+
+    @Override
+    public void deleteBuyer(Long id) {
+        Buyer buyer = buyerRepository.findById(id).orElseThrow(() -> new BuyerNotFoundException("Buyer not found with id :"));
+        buyerRepository.deleteById(id);
     }
 }

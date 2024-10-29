@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -61,5 +62,12 @@ public class BuyerController {
     public ResponseEntity<List<PropertyDTO>> addPropertyToFavorites(@PathVariable Long id, @RequestBody @Valid FavoriteDTO favorite) {
         List<PropertyDTO> propertyDTOS = buyerService.addPropertyToFavorites(id, favorite.getPropertyId());
         return ResponseEntity.ok().body(propertyDTOS);
+    }
+
+    @Operation(summary = "Delete a buyer by id")
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteBuyer(@PathVariable("id") Long id) {
+        buyerService.deleteBuyer(id);
+        return ResponseEntity.ok("Buyer delete succesfull");
     }
 }
